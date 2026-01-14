@@ -4,5 +4,46 @@
   "branch": "main",
   "me": "Damien-16",
   "journalStartDate": null,
-  "exceptions": []
+  "exceptions": [
+    {
+      "id": "6fce941e-5181-4bd4-8b85-45f546d29809",
+      "type": "commitless",
+      "name": "chore (projet) : fin step 0",
+      "description": "",
+      "date": "2026-01-14T15:20:00.000Z",
+      "duration": 10,
+      "status": "",
+      "author": "Damien-16"
+    },
+    {
+      "id": "85eb3c83-2fab-40a5-9236-cec0530ef9c7",
+      "type": "commitless",
+      "name": "chore(projet) : step 1",
+      "description": "",
+      "date": "2026-01-14T15:21:00.000Z",
+      "duration": 25,
+      "status": "Done",
+      "author": "Damien-16"
+    },
+    {
+      "id": "d4e87c0e-3077-48cc-ad34-9411db27d658",
+      "type": "commitless",
+      "name": "chore (projet) :step 2",
+      "description": "",
+      "date": "2026-01-14T15:22:00.000Z",
+      "duration": 35,
+      "status": "Done",
+      "author": "Damien-16"
+    },
+    {
+      "id": "67e1082a-45b7-4e31-bcc5-a4a74652e9d2",
+      "type": "commitless",
+      "name": "chore (projet) : step 3",
+      "description": "",
+      "date": "2026-01-14T15:22:00.000Z",
+      "duration": 45,
+      "status": "Done",
+      "author": "Damien-16"
+    }
+  ]
 }
