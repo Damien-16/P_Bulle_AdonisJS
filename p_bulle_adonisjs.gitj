@@ -10,9 +10,9 @@
       "type": "commitless",
       "name": "chore (projet) : fin step 0",
       "description": "",
-      "date": "2026-01-14T15:20:00.000Z",
+      "date": "2026-01-14T14:55",
       "duration": 10,
-      "status": "",
+      "status": "Done",
       "author": "Damien-16"
     },
     {
@@ -44,6 +44,32 @@
       "duration": 45,
       "status": "Done",
       "author": "Damien-16"
+    },
+    {
+      "id": "cde566dc-1698-43e1-a993-ab917e808d7a",
+      "type": "commitpatch",
+      "sha": "9de9c52075aa103f9881775fadf97d6a56d08edb",
+      "url": "https://github.com/Damien-16/P_Bulle_AdonisJS/commit/9de9c52075aa103f9881775fadf97d6a56d08edb",
+      "name": "chore(projet) : step 5",
+      "description": "",
+      "date": "2026-01-21T13:34",
+      "duration": 30,
+      "status": "Done",
+      "author": "Damien-16",
+      "patch": true
+    },
+    {
+      "id": "c99a3994-e96e-4399-9c6e-e6051a1ef9e2",
+      "type": "commitpatch",
+      "sha": "3275be06e2d10621f30664dc5f6e7daf7956f960",
+      "url": "https://github.com/Damien-16/P_Bulle_AdonisJS/commit/3275be06e2d10621f30664dc5f6e7daf7956f960",
+      "name": "chore (projet) : ajouter le jdt",
+      "description": "",
+      "date": "2026-01-14T13:44:00.000Z",
+      "duration": 15,
+      "status": "Done",
+      "author": "Damien-16",
+      "patch": true
     }
   ]
 }

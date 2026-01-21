@@ -12,6 +12,16 @@ export default class TeachersController {
     // Appel de la vue
     return view.render('pages/home', { teachers })
   }
+
+  /**
+ * Afficher les détails d'un enseignant (y compris le nom de sa section)
+ */
+  async show({ params, view }: HttpContext) {
+    // Sélectionner l'enseignant dont on veut afficher les détails
+    const teacher = await Teacher.query().where('id', params.id).preload('section').firstOrFail()
+    // Afficher la vue
+    return view.render('pages/teachers/show.edge', { title: "Détail d'un enseignant", teacher })
+  }
   /**
   * Display form to create a new record
   */
@@ -20,10 +30,6 @@ export default class TeachersController {
   * Handle form submission for the create action
   */
   async store({ request }: HttpContext) { }
-  /**
-  * Show individual record
-  */
-  async show({ params }: HttpContext) { }
   /**
   * Edit individual record
   */
