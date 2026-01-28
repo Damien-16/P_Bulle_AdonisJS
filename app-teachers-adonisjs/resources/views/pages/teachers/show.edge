@@ -1,39 +1,51 @@
 @component('components/layout', { title: title })
-<div class="user-head">
+  <div class="user-head">
     <h3>
-        Détail : {{ teacher.firstname }} {{ teacher.lastname }}
-        <img style="margin-left: 1vw;" height="20em" alt="male symbole" @if(teacher.gender==='woman' )
-            src="/img/femelle.png" @elseif(teacher.gender==='man' ) src="/img/male.png" @else src="/img/autre.png"
-            @end />
+      Détail : {{ teacher.firstname }} {{ teacher.lastname }}
+        <img
+        style="margin-left: 1vw;"
+        height="20em"
+        alt="male symbole"
+        @if(teacher.gender==='woman' )
+            src="/img/femelle.png"
+            @elseif(teacher.gender==='man' )
+            src="/img/male.png"
+            @else src="/img/autre.png"
+        @end
+      />
     </h3>
     <p>
-        {{ teacher.section.name }}
+      {{ teacher.section.name }}
     </p>
     <div class="actions">
-        <a href="{{ route('teacher.edit', {id: teacher.id}) }}">
-            <img height="20em" src="/img/edit.png" alt="edit" />
-        </a>
-        <form action="{{ route('teacher.destroy', { id: teacher.id }) }}?
-_method=DELETE" method="POST" style="display: inline">
-            {{ csrfField() }}
+      <a href="{{ route('teacher.edit', {id: teacher.id}) }}">
+        <img height="20em" src="/img/edit.png" alt="edit" />
+      </a>
+      <form
+        action="{{ route('teacher.destroy', { id: teacher.id }) }}?
+_method=DELETE"
+        method="POST"
+        style="display: inline"
+      >
+        {{ csrfField() }}
             <button type="submit" style="background: none; border: none;
 padding: 0; cursor: pointer;">
-                <img height="20em" src="/img/delete.png" alt="delete" />
-            </button>
-        </form>
+          <img height="20em" src="/img/delete.png" alt="delete" />
+        </button>
+      </form>
     </div>
-</div>
-<div class="user-body">
+  </div>
+  <div class="user-body">
     <div class="left">
-        <p>
-            Surnom : {{ teacher.nickname }}
-        </p>
-        <p>
-            {{ teacher.origine }}
-        </p>
+      <p>
+        Surnom : {{ teacher.nickname }}
+      </p>
+      <p>
+        {{ teacher.origine }}
+      </p>
     </div>
-</div>
-<div class="user-footer">
+  </div>
+  <div class="user-footer">
     <a href="{{ route('home') }}">Retour à la page d'accueil</a>
-</div>
+  </div>
 @endcomponent

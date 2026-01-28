@@ -1,0 +1,23 @@
+@component('components/layout', { title: 'Sections' })
+
+<h3>
+  Liste des sections
+</h3>
+  <thead>
+    <tr>
+      <th>
+        Nom
+      </th>
+    </tr>
+  </thead>
+    <tbody>
+        @each ((section, index) in sections)
+        <tr>
+        <td>
+            {{ section.name }}
+        </td>
+        
+        </tr>
+    </tbody>
+        @end
+@endcomponent

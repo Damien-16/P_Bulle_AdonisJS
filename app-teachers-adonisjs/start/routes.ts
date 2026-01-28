@@ -6,6 +6,7 @@
 | Le fichier des routes a pour but de définir toutes les routes HTTP.
 |
 */
+import SectionsController from '#controllers/sections_controller'
 import TeachersController from '#controllers/teachers_controller'
 import router from '@adonisjs/core/services/router'
 router.get('/', [TeachersController, 'index']).as('home')
@@ -20,3 +21,6 @@ router.post('/teacher/add', [TeachersController, 'store']).as('teacher.store')
 router.get('/teacher/:id/edit', [TeachersController, 'edit']).as('teacher.edit')
 // Route permettant la modification de l'enseignant
 router.put('/teacher/:id/update', [TeachersController, 'update']).as('teacher.update')
+
+router.get('/sections', [SectionsController, 'sections']).as('sections')
+router.get('/section/add', [SectionsController, 'create']).as('section.create')
