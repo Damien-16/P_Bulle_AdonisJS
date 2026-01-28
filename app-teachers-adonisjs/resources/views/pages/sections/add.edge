@@ -1,0 +1,20 @@
+@component('components/layout', { title: title })
+  <h3>
+    {{ title }}
+  </h3>
+  <form action="{{ route('section.store') }}" method="POST">
+    {{ csrfField() }}
+    {{-- Bloc nom --}}
+    <div class="field">
+      <label for="name">Prénom</label>
+      <input type="text" id="name" name="name" value="{{ old('name') || '' }}" />
+      @inputError('name')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <button type="submit">Enregistrer</button>
+  </form>
+@end

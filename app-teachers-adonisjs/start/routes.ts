@@ -22,5 +22,9 @@ router.get('/teacher/:id/edit', [TeachersController, 'edit']).as('teacher.edit')
 // Route permettant la modification de l'enseignant
 router.put('/teacher/:id/update', [TeachersController, 'update']).as('teacher.update')
 
-router.get('/sections', [SectionsController, 'sections']).as('sections')
+router.get('/sections', [SectionsController, 'index']).as('section.index')
+
 router.get('/section/add', [SectionsController, 'create']).as('section.create')
+router.post('/section/add', [SectionsController, 'store']).as('section.store')
+
+router.delete('/section/:id/delete', [SectionsController, 'destroy']).as('section.destroy')

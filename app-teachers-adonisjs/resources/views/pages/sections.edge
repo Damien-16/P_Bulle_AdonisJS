@@ -1,23 +1,44 @@
 @component('components/layout', { title: 'Sections' })
 
-<h3>
-  Liste des sections
-</h3>
-  <thead>
-    <tr>
-      <th>
-        Nom
-      </th>
-    </tr>
-  </thead>
+  <h3>
+    Liste des sections
+  </h3>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+    </thead>
     <tbody>
-        @each ((section, index) in sections)
+      @each ((section, index) in sections)
         <tr>
-        <td>
+          <td>
             {{ section.name }}
-        </td>
-        
+          </td>
+          <td class="containerOptions">
+
+            {{-- Ajout d'un formulaire pour la suppression d'un enseignant --}}
+            <form
+              action="{{ route('section.destroy', { id: section.id }) }}?
+_method=DELETE"
+              method="POST"
+              style="display: inline"
+            >
+              {{ csrfField() }}
+          <button type="submit" style="background: none; border: none;
+padding: 0; cursor: pointer;">
+                <img height="20em" src="/img/delete.png" alt="delete" />
+              </button>
+            </form>
+          </td>
         </tr>
+      @end
     </tbody>
-        @end
+  </table>
+
 @endcomponent
