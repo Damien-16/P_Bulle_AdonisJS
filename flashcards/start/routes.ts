@@ -1,0 +1,22 @@
+/*
+|--------------------------------------------------------------------------
+| Routes file
+|--------------------------------------------------------------------------
+|
+| The routes file is used for defining the HTTP routes.
+|
+*/
+import router from '@adonisjs/core/services/router'
+import DecksController from '#controllers/decks_controller'
+import CardsController from '#controllers/cards_controller' // On le crée juste après
+
+router.get('/', [DecksController, 'index']).as('home')
+router.get('/deck/:id', [DecksController, 'show']).as('decks.show')
+router.get('/decks/create', [DecksController, 'create']).as('decks.create')
+router.post('/decks', [DecksController, 'store']).as('decks.store')
+router.delete('/decks/:id/', [DecksController, 'destroy']).as('decks.destroy')
+
+router.get('/deck/:deckId/add-card', [CardsController, 'create']).as('cards.create')
+
+router.post('/cards', [CardsController, 'store']).as('cards.store')
+router.delete('/cards/:id', [CardsController, 'destroy']).as('cards.destroy')

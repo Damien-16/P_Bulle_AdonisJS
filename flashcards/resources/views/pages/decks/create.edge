@@ -1,0 +1,45 @@
+@component('components/layout', { title: 'Créer un nouveau deck' })
+
+  <h1>
+    Créer un nouveau paquet de cartes
+  </h1>
+
+  {{-- Le formulaire envoie les données en POST vers la route 'decks.store' [cite: 159] --}}
+  <form action="{{ route('decks.store') }}" method="POST">
+
+    {{-- Protection obligatoire contre les failles CSRF  --}}
+    {{ csrfField() }}
+    <div class="field" style="margin-bottom: 20px;">
+      <label for="name" style="font-weight: bold;">Nom du sujet</label>
+      <br />
+
+      {{--
+          value="{{ old('name') || '' }}" permet de réafficher ce que l'utilisateur
+          a tapé si le formulaire revient avec une erreur (ex: nom trop court) [cite: 196-197]
+      --}}
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="{{ old('name') || '' }}"
+        placeholder="Ex: Mathématiques, Histoire..."
+        style="padding: 10px; width: 100%; max-width: 400px; margin-top: 5px;"
+      />
+
+      {{-- Affichage du message d'erreur si la validation échoue [cite: 198-200] --}}
+      @inputError('name')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    {{-- Bouton de soumission [cite: 249] --}}
+    <button type="submit" class="btn">Enregistrer</button>
+  </form>
+
+  <div style="margin-top: 20px;">
+    <a href="{{ route('home') }}">Annuler</a>
+  </div>
+
+@endcomponent

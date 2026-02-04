@@ -70,6 +70,16 @@
       "status": "Done",
       "author": "Damien-16",
       "patch": true
+    },
+    {
+      "id": "2bf37489-6fdd-4b10-8bdf-a68cfdb53167",
+      "type": "commitless",
+      "name": "feat(FlashCard) :création du projet",
+      "description": "",
+      "date": "2026-02-04T14:25:00.000Z",
+      "duration": 10,
+      "status": "Done",
+      "author": "Damien-16"
     }
   ]
 }

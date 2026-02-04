@@ -1,0 +1,26 @@
+@component('components/layout', { title: 'Accueil' })
+  <h1>
+    Mes Decks
+  </h1>
+  <div class="grid-container">
+    @each(deck in decks)
+      <div class="card">
+        <h3>
+          {{ deck.name }}
+        </h3>
+        <a href="{{ route('decks.show', { id: deck.id }) }}" class="btn">Voir les cartes</a>
+        <form
+          action="{{ route('decks.destroy', { id: deck.id }) }}?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          {{ csrfField() }}
+          <button type="submit" style="background: none; border: none;
+padding: 0; cursor: pointer;">
+            <img height="20em" src="/img/delete.png" alt="delete" />
+          </button>
+        </form>
+      </div>
+    @end
+  </div>
+@endcomponent

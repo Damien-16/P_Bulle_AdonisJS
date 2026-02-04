@@ -1,0 +1,40 @@
+@component('components/layout', { title: deck.name })
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>
+      {{ deck.name }}
+    </h1>
+    <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn">+ Ajouter une carte</a>
+  </div>
+
+  <div class="grid-container">
+    @each(card in deck.cards)
+      <div class="card">
+        <h4>
+          Question :
+        </h4>
+        <div>
+          {{ card.question }}
+        </div>
+
+        <details>
+          <summary>
+            Voir la réponse
+          </summary>
+          <p>
+            {{ card.answer }}
+          </p>
+        </details>
+
+        <div class="actions">
+          <form action="{{ route('cards.destroy', { id: card.id }) }}?_method=DELETE" method="POST">
+            {{ csrfField() }}
+            <button type="submit" style="background:none; border:none; cursor:pointer; color:red;">
+              Supprimer
+            </button>
+          </form>
+        </div>
+      </div>
+    @end
+  </div>
+  <a href="{{ route('home') }}">← Retour</a>
+@endcomponent
