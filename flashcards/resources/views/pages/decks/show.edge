@@ -29,7 +29,7 @@
           <form action="{{ route('cards.destroy', { id: card.id }) }}?_method=DELETE" method="POST">
             {{ csrfField() }}
             <button type="submit" style="background:none; border:none; cursor:pointer; color:red;">
-              Supprimer
+              <img height="20em" src="/img/delete.png" alt="delete" />
             </button>
           </form>
         </div>

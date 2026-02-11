@@ -1,29 +1,35 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import Deck from '#models/deck'
 import Card from '#models/card'
-import Deck from '#models/deck' // Import nécessaire pour le titre
+import { createCardValidator } from '#validators/card'
 
 export default class CardsController {
-  // Afficher le formulaire
+  /**
+   * Etape 1 : Afficher le formulaire
+   * On récupère l'ID du deck via l'URL pour savoir où ajouter la carte
+   */
   async create({ params, view }: HttpContext) {
+    // On cherche le deck pour pouvoir afficher son nom dans la vue
     const deck = await Deck.findOrFail(params.deckId)
+
     return view.render('pages/cards/create', { deck })
   }
 
-  // Enregistrer la carte [cite: 132]
+  /**
+   * Etape 2 : Enregistrer la carte
+   */
   async store({ request, response, session }: HttpContext) {
-    const data = request.all() // Idéalement, utilisez un validateur ici (Step 8)
+    // 1. Validation des données via VineJS
+    const payload = await request.validateUsing(createCardValidator)
 
-    await Card.create({
-      question: data.question,
-      answer: data.answer,
-      deckId: data.deckId,
-    })
+    // 2. Création de la carte
+    await Card.create(payload)
 
-    session.flash('success', 'Carte ajoutée !')
-    return response.redirect().toRoute('decks.show', { id: data.deckId })
+    // 3. Message de succès et redirection vers le Deck
+    session.flash('success', 'La carte a été ajoutée avec succès !')
+    return response.redirect().toRoute('decks.show', { id: payload.deckId })
   }
-
-  // Supprimer la carte [cite: 371]
+  /* Supprimer la carte  */
   async destroy({ params, response, session }: HttpContext) {
     const card = await Card.findOrFail(params.id)
     const deckId = card.deckId

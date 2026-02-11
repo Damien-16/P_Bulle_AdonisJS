@@ -1,22 +1,47 @@
-@component('components/layout', { title: 'Nouvelle carte' })
+@component('components/layout', { title: 'Ajouter une carte' })
+
   <h1>
-    Ajouter une carte au deck : {{ deck.name }}
+    Ajouter une carte dans : {{ deck.name }}
   </h1>
 
   <form action="{{ route('cards.store') }}" method="POST">
     {{ csrfField() }}
+    {{-- CHAMP CACHÉ : Indispensable pour lier la carte au bon deck --}}
     <input type="hidden" name="deckId" value="{{ deck.id }}" />
 
-    <div style="margin-bottom:15px;">
-      <label>Question</label>      <br />
-      <textarea name="question" required style="width:100%; height:80px;"></textarea>
+    {{-- Champ Question --}}
+    <div class="field">
+      <label for="question">Question</label>
+      <br />
+      <textarea name="question" id="question" rows="3" style="width: 100%; padding: 10px;">{{ old('question') || '' }}</textarea>
+
+      @inputError('question')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
     </div>
 
-    <div style="margin-bottom:15px;">
-      <label>Réponse</label>      <br />
-      <textarea name="answer" required style="width:100%; height:80px;"></textarea>
+    {{-- Champ Réponse --}}
+    <div class="field" style="margin-top: 15px;">
+      <label for="answer">Réponse</label>
+      <br />
+      <textarea name="answer" id="answer" rows="3" style="width: 100%; padding: 10px;">{{ old('answer') || '' }}</textarea>
+
+      @inputError('answer')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
     </div>
 
-    <button type="submit" class="btn">Enregistrer</button>
+    <br />
+    <button type="submit" class="btn">Enregistrer la carte</button>
   </form>
+
+  <div style="margin-top: 20px;">
+    {{-- Lien de retour vers le deck --}}
+    <a href="{{ route('decks.show', { id: deck.id }) }}">Annuler</a>
+  </div>
+
 @endcomponent

@@ -3,7 +3,9 @@ import Deck from '#models/deck'
 import { createDeckValidator } from '#validators/deck' // Import du validateur
 
 export default class DecksController {
-  // Page d'accueil : Liste des decks
+  /**
+   * Page d'accueil : Liste des decks
+   */
   async index({ view }: HttpContext) {
     const decks = await Deck.all()
     return view.render('pages/home', { decks })
