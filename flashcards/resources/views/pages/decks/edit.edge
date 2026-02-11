@@ -1,0 +1,34 @@
+@component('components/layout', { title: 'Modifier le deck' })
+
+  <h1>
+    Modifier le deck
+  </h1>
+
+  {{-- Formulaire avec Spoofing PUT --}}
+  <form action="{{ route('decks.update', { id: deck.id }) }}?_method=PUT" method="POST">
+    {{ csrfField() }}
+    <div class="field">
+      <label for="name">Nom du deck</label>
+      <br />
+      <input
+        type="text"
+        name="name"
+        value="{{ old('name') || deck.name }}"
+        style="width: 100%; padding: 10px;"
+      />
+      @inputError('name')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <br />
+    <button type="submit" class="btn">Mettre à jour</button>
+  </form>
+
+  <div style="margin-top: 20px;">
+    <a href="/">Annuler</a>
+  </div>
+
+@endcomponent

@@ -5,7 +5,7 @@
     </h1>
     <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn">+ Ajouter une carte</a>
   </div>
-
+  <a href="{{ route('home') }}">← Retour</a>
   <div class="grid-container">
     @each(card in deck.cards)
       <div class="card">
@@ -24,8 +24,12 @@
             {{ card.answer }}
           </p>
         </details>
-
         <div class="actions">
+          {{-- Lien vers la page d'édition --}}
+          <a href="{{ route('cards.edit', { id: card.id }) }}" style="margin-right: 10px;">
+            <img height="20em" src="/img/edit.png" alt="edit" />
+          </a>
+
           <form action="{{ route('cards.destroy', { id: card.id }) }}?_method=DELETE" method="POST">
             {{ csrfField() }}
             <button type="submit" style="background:none; border:none; cursor:pointer; color:red;">
@@ -36,5 +40,5 @@
       </div>
     @end
   </div>
-  <a href="{{ route('home') }}">← Retour</a>
+
 @endcomponent

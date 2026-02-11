@@ -38,4 +38,31 @@ export default class CardsController {
     session.flash('success', 'Carte supprimée !')
     return response.redirect().toRoute('decks.show', { id: deckId })
   }
+  /**
+   * Afficher le formulaire d'édition avec les données existantes
+   */
+  async edit({ params, view }: HttpContext) {
+    // On récupère la carte pour pré-remplir le formulaire
+    const card = await Card.findOrFail(params.id)
+
+    return view.render('pages/cards/edit', { card })
+  }
+  /**
+   * Traiter la mise à jour
+   */
+  async update({ params, request, response, session }: HttpContext) {
+    // 1. On récupère la carte cible
+    const card = await Card.findOrFail(params.id)
+
+    // 2. On valide les nouvelles données
+    const payload = await request.validateUsing(createCardValidator)
+
+    // 3. On fusionne les nouvelles données et on sauvegarde
+    card.merge(payload)
+    await card.save()
+
+    // 4. Confirmation et redirection
+    session.flash('success', 'Carte modifiée avec succès !')
+    return response.redirect().toRoute('decks.show', { id: card.deckId })
+  }
 }

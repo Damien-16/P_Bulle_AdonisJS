@@ -37,4 +37,31 @@ export default class DecksController {
     session.flash('success', 'Le deck a été supprimé avec succès !')
     return response.redirect().toRoute('home')
   }
+  /**
+   * Afficher le formulaire d'édition avec les données existantes
+   */
+  async edit({ params, view }: HttpContext) {
+    // On récupère le deck pour pré-remplir le formulaire
+    const deck = await Deck.findOrFail(params.id)
+
+    return view.render('pages/decks/edit', { deck })
+  }
+  /**
+   * Traiter la mise à jour
+   */
+  async update({ params, request, response, session }: HttpContext) {
+    // 1. On récupère le deck cible
+    const deck = await Deck.findOrFail(params.id)
+
+    // 2. On valide les nouvelles données
+    const payload = await request.validateUsing(createDeckValidator)
+
+    // 3. On fusionne les nouvelles données et on sauvegarde
+    deck.merge(payload)
+    await deck.save()
+
+    // 4. Confirmation et redirection
+    session.flash('success', 'Deck modifié avec succès !')
+    return response.redirect().toRoute('home')
+  }
 }

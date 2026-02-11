@@ -1,0 +1,43 @@
+@component('components/layout', { title: 'Modifier la carte' })
+
+  <h1>
+    Modifier la carte
+  </h1>
+
+  {{-- Formulaire avec Spoofing PUT --}}
+  <form action="{{ route('cards.update', { id: card.id }) }}?_method=PUT" method="POST">
+    {{ csrfField() }}
+    {{-- On garde le deckId en caché pour que le validateur soit content --}}
+    <input type="hidden" name="deckId" value="{{ card.deckId }}" />
+
+    <div class="field">
+      <label for="question">Question</label>
+      <br />
+      <textarea name="question" rows="3" style="width: 100%; padding: 10px;">{{ old('question') || card.question }}</textarea>
+      @inputError('question')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <div class="field" style="margin-top: 15px;">
+      <label for="answer">Réponse</label>
+      <br />
+      <textarea name="answer" rows="3" style="width: 100%; padding: 10px;">{{ old('answer') || card.answer }}</textarea>
+      @inputError('answer')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <br />
+    <button type="submit" class="btn">Mettre à jour</button>
+  </form>
+
+  <div style="margin-top: 20px;">
+    <a href="{{ route('decks.show', { id: card.deckId }) }}">Annuler</a>
+  </div>
+
+@endcomponent
