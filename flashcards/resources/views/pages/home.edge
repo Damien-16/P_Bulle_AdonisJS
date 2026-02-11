@@ -8,8 +8,13 @@
         <h3>
           {{ deck.name }}
         </h3>
+        <p style="color: gray; font-size: 0.9em;">
+          {{-- Afficher le nombre de cartes pour chaques decks --}}
+          {{ deck.$extras.cards_count }} carte{{ deck.$extras.cards_count > 1 ? 's' : '' }}
+        </p>
         <a href="{{ route('decks.show', { id: deck.id }) }}" class="btn">Voir les cartes</a>
         <form
+          style="margin-left:230px;margin-top:10px"
           action="{{ route('decks.destroy', { id: deck.id }) }}?_method=DELETE"
           method="POST"
           style="display: inline"

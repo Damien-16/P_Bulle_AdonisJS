@@ -7,7 +7,7 @@ export default class DecksController {
    * Page d'accueil : Liste des decks
    */
   async index({ view }: HttpContext) {
-    const decks = await Deck.all()
+    const decks = await Deck.query().withCount('cards').orderBy('updatedAt', 'desc') //withcount pour afficher le nombre de cartes dans chaque deck
     return view.render('pages/home', { decks })
   }
 
