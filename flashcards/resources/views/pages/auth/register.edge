@@ -1,0 +1,40 @@
+@component('components/layout', { title: 'Inscription' })
+  <h1>
+    Créer un compte
+  </h1>
+
+  <form action="{{ route('auth.register') }}" method="POST">
+    {{ csrfField() }}
+    <div class="field">
+      <label for="fullName">Nom complet</label>
+      <input type="text" name="fullName" value="{{ old('fullName') || '' }}" />
+      @inputError('fullName')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" name="email" value="{{ old('email') || '' }}" />
+      @inputError('email')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <div class="field">
+      <label for="password">Mot de passe</label>
+      <input type="password" name="password" />
+      @inputError('password')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <button type="submit" class="btn">S'inscrire</button>
+  </form>
+@endcomponent

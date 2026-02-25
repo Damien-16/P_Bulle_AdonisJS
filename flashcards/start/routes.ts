@@ -9,6 +9,7 @@
 import router from '@adonisjs/core/services/router'
 import DecksController from '#controllers/decks_controller'
 import CardsController from '#controllers/cards_controller'
+import AuthController from '#controllers/auth_controller'
 
 router.get('/', [DecksController, 'index']).as('home')
 //routes des decks
@@ -26,3 +27,7 @@ router.post('/cards', [CardsController, 'store']).as('cards.store')
 router.delete('/cards/:id', [CardsController, 'destroy']).as('cards.destroy')
 router.get('/cards/:id/edit', [CardsController, 'edit']).as('cards.edit')
 router.put('/cards/:id', [CardsController, 'update']).as('cards.update')
+
+//routes d'authentification
+router.get('/register', [AuthController, 'showRegister']).as('auth.showRegister')
+router.post('/register', [AuthController, 'register']).as('auth.register')

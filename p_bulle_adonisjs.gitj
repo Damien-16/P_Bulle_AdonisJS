@@ -80,6 +80,19 @@
       "duration": 10,
       "status": "Done",
       "author": "Damien-16"
+    },
+    {
+      "id": "ebf07f58-5c40-4e32-bb81-158a93dd9c29",
+      "type": "commitpatch",
+      "sha": "0c52fc06854915e466bea13ef277af4f4672ad66",
+      "url": "https://github.com/Damien-16/P_Bulle_AdonisJS/commit/0c52fc06854915e466bea13ef277af4f4672ad66",
+      "name": "feat (flashcards) : changement de l'affichage des carte et ajout des flashcards pour apprendre",
+      "description": "",
+      "date": "2026-02-25T12:21:00.000Z",
+      "duration": 60,
+      "status": "Done",
+      "author": "Damien-16",
+      "patch": true
     }
   ]
 }

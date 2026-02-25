@@ -1,5 +1,5 @@
 @component('components/layout', { title: 'Révision : ' + deck.name })
-  {{-- En-tête de session [cite: 1391-1413] --}}
+  {{-- En-tête de session --}}
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
     <h1>
       Entraînement : {{ deck.name }}
@@ -18,7 +18,7 @@
           <div class="flashcard-item" data-index="{{ index }}" style="display: none;">
             <div class="flashcard-container" onclick="this.classList.toggle('flipped')" style="height: 400px;">
               <div class="flashcard-inner" style="box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
-                {{-- Face Question [cite: 25] --}}
+                {{-- Face Question --}}
                 <div class="flashcard-front" style="background: white; border: 2px solid #00b4cc;">
                   <span class="label">QUESTION</span>
                   <div class="content">
@@ -29,7 +29,7 @@
                   </p>
                 </div>
 
-                {{-- Face Réponse [cite: 25] --}}
+                {{-- Face Réponse  --}}
                 <div class="flashcard-back" style="background: #f0f8ff; border: 2px solid #00b4cc;">
                   <span class="label">RÉPONSE</span>
                   <div class="content">
@@ -188,7 +188,7 @@
           updateDisplay();
         }
       });
-      // Initialisation [cite: 1726-1735]
+      // Initialisation de l'affichage
       updateDisplay();
     });
   </script>
