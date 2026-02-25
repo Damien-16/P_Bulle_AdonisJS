@@ -64,4 +64,11 @@ export default class DecksController {
     session.flash('success', 'Deck modifié avec succès !')
     return response.redirect().toRoute('home')
   }
+
+  async learn({ params, view }: HttpContext) {
+    // Récupération du deck avec ses cartes [cite: 516, 531]
+    const deck = await Deck.query().where('id', params.id).preload('cards').firstOrFail()
+
+    return view.render('pages/decks/learn', { deck })
+  }
 }

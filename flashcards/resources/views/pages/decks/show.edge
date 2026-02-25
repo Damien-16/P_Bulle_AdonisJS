@@ -1,44 +1,84 @@
 @component('components/layout', { title: deck.name })
-  <div style="display:flex; justify-content:space-between; align-items:center;">
+  {{-- En-tête avec titre et bouton d'ajout --}}
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
     <h1>
       {{ deck.name }}
     </h1>
     <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn">+ Ajouter une carte</a>
   </div>
-  <a href="{{ route('home') }}">← Retour</a>
-  <div class="grid-container">
-    @each(card in deck.cards)
-      <div class="card">
-        <h4>
-          Question :
-        </h4>
-        <div>
-          {{ card.question }}
-        </div>
-
-        <details>
-          <summary>
-            Voir la réponse
-          </summary>
-          <p>
-            {{ card.answer }}
-          </p>
-        </details>
-        <div class="actions">
-          {{-- Lien vers la page d'édition --}}
-          <a href="{{ route('cards.edit', { id: card.id }) }}" style="margin-right: 10px;">
-            <img height="20em" src="/img/edit.png" alt="edit" />
-          </a>
-
-          <form action="{{ route('cards.destroy', { id: card.id }) }}?_method=DELETE" method="POST">
-            {{ csrfField() }}
-            <button type="submit" style="background:none; border:none; cursor:pointer; color:red;">
-              <img height="20em" src="/img/delete.png" alt="delete" />
-            </button>
-          </form>
-        </div>
-      </div>
-    @end
+  <div style="display: flex; justify-content: flex-end;">
+    <a
+      href="{{ route('decks.learn', { id: deck.id }) }}"
+      class="btn"
+      style="background-color: #28a745;"
+    >Apprendre</a>
   </div>
 
+  <div style="margin-bottom: 20px;">
+    <a href="{{ route('home') }}">← Retour</a>
+  </div>
+
+  {{-- Liste des cartes sous forme de tableau --}}
+  <table style="width: 100%; border-collapse: collapse; text-align: left;">
+    <thead>
+      <tr style="border-bottom: 2px solid #ddd;">
+        <th style="padding: 10px; width: 100px;">
+          Options
+        </th>
+
+        <th style="padding: 10px;">
+          Question
+        </th>
+
+        <th style="padding: 10px;">
+          Réponse
+        </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      @each(card in deck.cards)
+        <tr style="border-bottom: 1px solid #eee;">
+          {{-- Colonne des actions (Modifier / Supprimer) --}}
+          <td style="padding: 10px; white-space: nowrap;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+              {{-- Icône de modification --}}
+              <a href="{{ route('cards.edit', { id: card.id }) }}">
+                <img height="20em" src="/img/edit.png" alt="edit" />
+              </a>
+
+              {{-- Formulaire de suppression avec spoofing de méthode  --}}
+              <form
+                action="{{ route('cards.destroy', { id: card.id }) }}?_method=DELETE"
+                method="POST"
+                onsubmit="return confirm('Voulez-vous vraiment supprimer cette carte ?')"
+              >
+                {{ csrfField() }}
+                <button type="submit" style="background:none; border:none; cursor:pointer; padding: 0;">
+                  <img height="20em" src="/img/delete.png" alt="delete" />
+                </button>
+              </form>
+            </div>
+          </td>
+
+          {{-- Contenu de la question [cite: 25] --}}
+          <td style="padding: 10px; vertical-align: top;">
+            {{ card.question }}
+          </td>
+
+          {{-- Contenu de la réponse [cite: 25] --}}
+          <td style="padding: 10px; vertical-align: top;">
+            {{ card.answer }}
+          </td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+
+  {{-- Message si le deck est vide --}}
+  @if(deck.cards.length === 0)
+    <p style="text-align: center; margin-top: 20px; color: #666;">
+      Ce paquet ne contient aucune carte pour le moment.
+    </p>
+  @end
 @endcomponent

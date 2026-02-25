@@ -1,0 +1,195 @@
+@component('components/layout', { title: 'Révision : ' + deck.name })
+  {{-- En-tête de session [cite: 1391-1413] --}}
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+    <h1>
+      Entraînement : {{ deck.name }}
+    </h1>
+    <div>
+      <span id="progress-text" style="font-weight: bold; margin-right: 15px; color: #666;"></span>
+      <a href="{{ route('decks.show', { id: deck.id }) }}" class="btn" style="background-color: #6c757d;">Quitter</a>
+    </div>
+  </div>
+
+  <div class="learn-container" style="max-width: 600px; margin: 0 auto;">
+    @if(deck.cards.length > 0)
+      {{-- Conteneur des cartes --}}
+      <div id="flashcard-deck">
+        @each((card, index) in deck.cards)
+          <div class="flashcard-item" data-index="{{ index }}" style="display: none;">
+            <div class="flashcard-container" onclick="this.classList.toggle('flipped')" style="height: 400px;">
+              <div class="flashcard-inner" style="box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                {{-- Face Question [cite: 25] --}}
+                <div class="flashcard-front" style="background: white; border: 2px solid #00b4cc;">
+                  <span class="label">QUESTION</span>
+                  <div class="content">
+                    {{ card.question }}
+                  </div>
+                  <p class="hint">
+                    Cliquez pour retourner la carte
+                  </p>
+                </div>
+
+                {{-- Face Réponse [cite: 25] --}}
+                <div class="flashcard-back" style="background: #f0f8ff; border: 2px solid #00b4cc;">
+                  <span class="label">RÉPONSE</span>
+                  <div class="content">
+                    {{ card.answer }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        @end
+      </div>
+
+      {{-- Contrôles de navigation --}}
+      <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
+        <button id="prev-btn" class="btn" style="background-color: #6c757d;">Précédente</button>
+        <button id="next-btn" class="btn">Suivante</button>
+      </div>
+
+      {{-- Écran final (caché par défaut) --}}
+      <div
+        id="final-screen"
+        style="display: none; text-align: center; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
+      >
+        <h2 style="color: #00b4cc;">
+          Session terminée !
+        </h2>
+        <p>
+          Vous avez passé en revue les {{ deck.cards.length }} cartes de ce paquet.
+        </p>
+        <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
+          <button onclick="location.reload()" class="btn">Recommencer</button>
+          <a href="{{ route('home') }}" class="btn" style="background-color: #6c757d;">Retour à l'accueil</a>
+        </div>
+      </div>
+
+    @else
+      <div style="text-align: center; padding: 50px;">
+        <p>
+          Ce paquet est vide. Ajoutez des cartes pour commencer !
+        </p>
+        <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn">+ Ajouter une carte</a>
+      </div>
+    @end
+  </div>
+
+  <style>
+    .flashcard-item {
+      width: 100%;
+    }
+    
+    .flashcard-container {
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .flashcard-container.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .flashcard-front,
+    .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+    
+    .flashcard-back {
+      transform: rotateY(180deg);
+    }
+    
+    .label {
+      color: #00b4cc;
+      font-size: 0.7em;
+      font-weight: bold;
+      position: absolute;
+      top: 25px;
+      letter-spacing: 2px;
+    }
+    
+    .content {
+      font-size: 1.6em;
+      color: #2c3e50;
+      font-weight: 500;
+    }
+    
+    .hint {
+      font-size: 0.5em;
+      color: #aaa;
+      margin-top: 30px;
+      position: absolute;
+      bottom: 20px;
+    }
+    
+    .btn:disabled {
+      background-color: #ccc !important;
+      cursor: not-allowed;
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll(".flashcard-item");
+      const nextBtn = document.getElementById("next-btn");
+      const prevBtn = document.getElementById("prev-btn");
+      const progressText = document.getElementById("progress-text");
+      const finalScreen = document.getElementById("final-screen");
+      const deckContainer = document.getElementById("flashcard-deck");
+      let currentIndex = 0;
+      const totalCards = {{ deck.cards.length }};
+      function updateDisplay() {
+        // Masquer toutes les cartes
+        cards.forEach(card => {
+          card.style.display = "none";
+          card.querySelector(".flashcard-container").classList.remove("flipped");
+        });
+        if (currentIndex < totalCards) {
+          // Afficher la carte actuelle
+          cards[currentIndex].style.display = "block";
+          progressText.innerText = `Carte ${currentIndex + 1} / ${totalCards}`;
+          // Gérer l'état des boutons
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.innerText = currentIndex === totalCards - 1 ? "Terminer" : "Suivante";
+          prevBtn.parentElement.style.display = "flex";
+          finalScreen.style.display = "none";
+        } else {
+          // Fin de session
+          progressText.innerText = "Terminé";
+          prevBtn.parentElement.style.display = "none";
+          finalScreen.style.display = "block";
+        }
+      }
+      nextBtn.addEventListener("click", () => {
+        currentIndex++;
+        updateDisplay();
+      });
+      prevBtn.addEventListener("click", () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateDisplay();
+        }
+      });
+      // Initialisation [cite: 1726-1735]
+      updateDisplay();
+    });
+  </script>
+@endcomponent
