@@ -1,0 +1,47 @@
+@component('components/auth_layout', { title: 'Connexion' })
+  <h1 style="text-align: center; margin-bottom: 30px;">
+    Connexion
+  </h1>
+
+  <form action="{{ route('auth.login') }}" method="POST">
+    {{ csrfField() }}
+    <div class="field" style="margin-bottom: 20px;">
+      <label for="username">Nom d'utilisateur</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        value="{{ old('username') || '' }}"
+        placeholder="Entrez votre nom d'utilisateur"
+        style="width: 100%; padding: 10px; margin-top: 5px;"
+      />
+      @inputError('username')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <div class="field" style="margin-bottom: 20px;">
+      <label for="password">Mot de passe</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Entrez votre mot de passe"
+        style="width: 100%; padding: 10px; margin-top: 5px;"
+      />
+      @inputError('password')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
+    <button type="submit" class="btn" style="width: 100%;">Se connecter</button>
+  </form>
+
+  <p style="text-align: center; margin-top: 20px;">
+    Vous n'avez pas de compte ? <a href="{{ route('auth.showRegister') }}">Créer un compte</a>
+  </p>
+@endcomponent

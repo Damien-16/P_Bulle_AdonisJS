@@ -42,6 +42,13 @@ succès`
   }
 
   /**
+   * Afficher la page de connexion
+   */
+  async showLogin({ view }: HttpContext) {
+    return view.render('pages/auth/login')
+  }
+
+  /**
    * Créer un nouvel utilisateur
    */
   async register({ request, response, session, auth }: HttpContext) {
