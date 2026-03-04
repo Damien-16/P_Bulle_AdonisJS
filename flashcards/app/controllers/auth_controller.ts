@@ -51,6 +51,7 @@ succès`
     // 2. Vérifier si l'utilisateur existe déjà
     const existingUser = await User.findBy('username', payload.username)
     if (existingUser) {
+      // Afficher un message d'erreur
       session.flash('error', "Ce nom d'utilisateur est déjà utilisé")
       return response.redirect().back()
     }

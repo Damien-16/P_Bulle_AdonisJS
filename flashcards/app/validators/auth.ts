@@ -1,4 +1,5 @@
 import vine from '@vinejs/vine'
+
 // Validation pour la connexion d'un utilisateur
 const loginUserValidator = vine.compile(
   vine.object({
@@ -6,6 +7,7 @@ const loginUserValidator = vine.compile(
     password: vine.string().minLength(8),
   })
 )
+
 // Validation pour l'inscription d'un utilisateur
 const registerUserValidator = vine.compile(
   vine.object({

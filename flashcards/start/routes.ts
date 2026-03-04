@@ -7,6 +7,7 @@
 |
 */
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
 import DecksController from '#controllers/decks_controller'
 import CardsController from '#controllers/cards_controller'
 import AuthController from '#controllers/auth_controller'
@@ -29,8 +30,11 @@ router.get('/cards/:id/edit', [CardsController, 'edit']).as('cards.edit')
 router.put('/cards/:id', [CardsController, 'update']).as('cards.update')
 
 //routes d'authentification
-router.get('/register', [AuthController, 'showRegister']).as('auth.showRegister')
-router.post('/register', [AuthController, 'register']).as('auth.register')
+router
+  .get('/register', [AuthController, 'showRegister'])
+  .as('auth.showRegister')
+  .use(middleware.guest())
+router.post('/register', [AuthController, 'register']).as('auth.register').use(middleware.guest())
 
 router.post('/login', [AuthController, 'login']).as('auth.login')
 router.post('/logout', [AuthController, 'logout']).as('auth.logout')

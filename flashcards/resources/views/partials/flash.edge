@@ -3,9 +3,16 @@
     {{ flashMessages.get('success') }}
   </div>
 @end
+
+@if(flashMessages.has('error'))
+  <div class="alert alert-danger">
+    {{ flashMessages.get('error') }}
+  </div>
+@end
+
 @error('E_INVALID_CREDENTIALS')
- <div class="alert alert-danger">
- {{ $message }}
- </div>
+  <div class="alert alert-danger">
+    {{ $message }}
+  </div>
 @end
 

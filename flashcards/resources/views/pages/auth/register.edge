@@ -1,17 +1,18 @@
-@component('components/layout', { title: 'Inscription' })
-  <h1>
+@component('components/auth_layout', { title: 'Inscription' })
+  <h1 style="text-align: center; margin-bottom: 30px;">
     Créer un compte
   </h1>
 
   <form action="{{ route('auth.register') }}" method="POST">
     {{ csrfField() }}
-    <div class="field">
+    <div class="field" style="margin-bottom: 20px;">
       <label for="username">Nom d'utilisateur</label>
       <input
         type="text"
         name="username"
         value="{{ old('username') || '' }}"
         placeholder="Minimum 4 caractères"
+        style="width: 100%; padding: 10px; margin-top: 5px;"
       />
       @inputError('username')
         <p class="text-danger">
@@ -20,9 +21,14 @@
       @end
     </div>
 
-    <div class="field">
+    <div class="field" style="margin-bottom: 20px;">
       <label for="password">Mot de passe</label>
-      <input type="password" name="password" placeholder="Minimum 8 caractères" />
+      <input
+        type="password"
+        name="password"
+        placeholder="Minimum 8 caractères"
+        style="width: 100%; padding: 10px; margin-top: 5px;"
+      />
       @inputError('password')
         <p class="text-danger">
           {{ $messages.join(', ') }}
@@ -30,10 +36,10 @@
       @end
     </div>
 
-    <button type="submit" class="btn">S'inscrire</button>
+    <button type="submit" class="btn" style="width: 100%;">S'inscrire</button>
   </form>
 
-  <p>
+  <p style="text-align: center; margin-top: 20px;">
     Vous avez déjà un compte ? <a href="{{ route('home') }}">Se connecter</a>
   </p>
 @endcomponent
