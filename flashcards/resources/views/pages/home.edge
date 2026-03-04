@@ -12,6 +12,11 @@
           {{-- Afficher le nombre de cartes pour chaques decks --}}
           {{ deck.$extras.cards_count }} carte{{ deck.$extras.cards_count > 1 ? 's' : '' }}
         </p>
+        @if(deck.description)
+          <p style="color: #666; margin: 10px 0;">
+            {{ deck.description }}
+          </p>
+        @end
         <a href="{{ route('decks.show', { id: deck.id }) }}" class="btn">Voir les cartes</a>
 
         <div class="actions">

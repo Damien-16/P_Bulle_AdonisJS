@@ -5,6 +5,11 @@
       {{ deck.name }}
     </h1>
     <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn">+ Ajouter une carte</a>
+    @if(deck.description)
+      <p style="color: #666; margin-bottom: 20px; font-size: 1.1em;">
+        {{ deck.description }}
+      </p>
+    @end
   </div>
   <div style="display: flex; justify-content: flex-end;">
     <a

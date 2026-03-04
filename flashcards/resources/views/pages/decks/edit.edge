@@ -23,6 +23,22 @@
       @end
     </div>
 
+    <div class="field" style="margin-top: 20px;">
+      <label for="description">Description</label>
+      <br />
+      <textarea
+        id="description"
+        name="description"
+        placeholder="Entrez une description pour le paquet de cartes..."
+        style="padding: 10px; width: 100%; max-width: 400px; margin-top: 5px;"
+      >{{ old('description') || deck.description }}</textarea>
+      @inputError('description')
+        <p class="text-danger">
+          {{ $messages.join(', ') }}
+        </p>
+      @end
+    </div>
+
     <br />
     <button type="submit" class="btn">Mettre à jour</button>
   </form>

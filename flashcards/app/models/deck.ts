@@ -12,9 +12,11 @@ export default class Deck extends BaseModel {
   @column()
   declare name: string
 
+  @column()
+  declare description: string | null
+
   @hasMany(() => Card)
   declare cards: HasMany<typeof Card>
-
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

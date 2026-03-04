@@ -4,6 +4,11 @@
     <h1>
       Entraînement : {{ deck.name }}
     </h1>
+    @if(deck.description)
+      <p style="color: #666; margin-top: 5px;">
+        {{ deck.description }}
+      </p>
+    @end
     <div>
       <span id="progress-text" style="font-weight: bold; margin-right: 15px; color: #666;"></span>
       <a href="{{ route('decks.show', { id: deck.id }) }}" class="btn" style="background-color: #6c757d;">Quitter</a>
