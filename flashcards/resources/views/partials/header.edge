@@ -1,9 +1,52 @@
+@eval(await auth.check())
 <header>
   <div class="container-header">
-
+    <div class="login-container">
+      {{-- Affichage du nom d'utilisateur et du rôle si connecté, sinon affichage du formulaire de connexion --}}
+      @if(auth.isAuthenticated)
+        {{ auth.user.username }} ({{ auth.user.isAdmin ? 'admin' : 'user' }})
+        <form action="{{ route('auth.logout') }}" method="post">
+          {{ csrfField() }}
+ <button type="submit" class="btn btn-logout">Se déconnecter</button>
+        </form>
+      @else
+        <form action="{{ route('auth.login') }}" method="post">
+          {{ csrfField() }}
+ <input
+            type="text"
+            id="username"
+            name="username"
+            value="{{ old('username') || '' }}"
+            placeholder="Nom d'utilisateur"
+          />
+          @inputError('username')
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
+          @end
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value="{{ old('password') || '' }}"
+            placeholder="Mot de passe"
+          />
+          @inputError('password')
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
+          @end
+          <button type="submit" class="btn btn-login">Se connecter</button>
+        </form>
+        <p style="margin: 0; text-align: center;">
+          ou <a href="{{ route('auth.showRegister') }}">créer un compte</a>
+        </p>
+      @endif
+    </div>
   </div>
-</header>
-<nav>
-  <a href="{{ route('home') }}">Mes Decks</a>&nbsp;
+  <nav>
+    <a href="{{ route('home') }}">Mes Decks</a>&nbsp;
   <a href="{{ route('decks.create') }}">Créer un Deck</a>
-</nav>
+  </nav>
+</header>
+

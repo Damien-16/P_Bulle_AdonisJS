@@ -1,9 +1,17 @@
 import vine from '@vinejs/vine'
-
-export const registerValidator = vine.compile(
+// Validation pour la connexion d'un utilisateur
+const loginUserValidator = vine.compile(
   vine.object({
-    fullName: vine.string().trim().minLength(3),
-    email: vine.string().email().unique({ table: 'users', column: 'email' }),
-    password: vine.string().minLength(8)
+    username: vine.string().minLength(4),
+    password: vine.string().minLength(8),
   })
 )
+// Validation pour l'inscription d'un utilisateur
+const registerUserValidator = vine.compile(
+  vine.object({
+    username: vine.string().trim().minLength(4).maxLength(50),
+    password: vine.string().minLength(8),
+  })
+)
+
+export { loginUserValidator, registerUserValidator }

@@ -5,7 +5,7 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.alterTable(this.tableName, (table) => {
-      // Ajout de la relation vers la table users [cite: 1201-1203]
+      // Ajout de la relation vers la table users
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
     })
   }

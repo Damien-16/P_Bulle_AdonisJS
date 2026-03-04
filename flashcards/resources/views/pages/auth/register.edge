@@ -6,19 +6,14 @@
   <form action="{{ route('auth.register') }}" method="POST">
     {{ csrfField() }}
     <div class="field">
-      <label for="fullName">Nom complet</label>
-      <input type="text" name="fullName" value="{{ old('fullName') || '' }}" />
-      @inputError('fullName')
-        <p class="text-danger">
-          {{ $messages.join(', ') }}
-        </p>
-      @end
-    </div>
-
-    <div class="field">
-      <label for="email">Email</label>
-      <input type="email" name="email" value="{{ old('email') || '' }}" />
-      @inputError('email')
+      <label for="username">Nom d'utilisateur</label>
+      <input
+        type="text"
+        name="username"
+        value="{{ old('username') || '' }}"
+        placeholder="Minimum 4 caractères"
+      />
+      @inputError('username')
         <p class="text-danger">
           {{ $messages.join(', ') }}
         </p>
@@ -27,7 +22,7 @@
 
     <div class="field">
       <label for="password">Mot de passe</label>
-      <input type="password" name="password" />
+      <input type="password" name="password" placeholder="Minimum 8 caractères" />
       @inputError('password')
         <p class="text-danger">
           {{ $messages.join(', ') }}
@@ -37,4 +32,8 @@
 
     <button type="submit" class="btn">S'inscrire</button>
   </form>
+
+  <p>
+    Vous avez déjà un compte ? <a href="{{ route('home') }}">Se connecter</a>
+  </p>
 @endcomponent

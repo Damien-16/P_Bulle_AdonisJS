@@ -31,3 +31,6 @@ router.put('/cards/:id', [CardsController, 'update']).as('cards.update')
 //routes d'authentification
 router.get('/register', [AuthController, 'showRegister']).as('auth.showRegister')
 router.post('/register', [AuthController, 'register']).as('auth.register')
+
+router.post('/login', [AuthController, 'login']).as('auth.login')
+router.post('/logout', [AuthController, 'logout']).as('auth.logout')
