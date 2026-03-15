@@ -27,6 +27,7 @@
             action="{{ route('decks.destroy', { id: deck.id }) }}?_method=DELETE"
             method="POST"
             style="display: inline"
+            onsubmit="event.stopPropagation(); return confirm('Voulez-vous vraiment supprimer ce deck ?')"
           >
 
             {{ csrfField() }}

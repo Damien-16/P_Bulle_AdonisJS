@@ -26,7 +26,7 @@ export default class CardsController {
     const payload = await request.validateUsing(createCardValidator)
 
     // 2. Vérifier que le deck appartient à l'utilisateur connecté
-    const deck = await Deck.query()
+    await Deck.query()
       .where('id', payload.deckId)
       .where('user_id', auth.user!.id)
       .firstOrFail()
@@ -45,7 +45,7 @@ export default class CardsController {
     const deckId = card.deckId
 
     // Vérifier que le deck appartient à l'utilisateur connecté
-    const deck = await Deck.query()
+    await Deck.query()
       .where('id', deckId)
       .where('user_id', auth.user!.id)
       .firstOrFail()
@@ -64,7 +64,7 @@ export default class CardsController {
     const card = await Card.findOrFail(params.id)
 
     // Vérifier que le deck appartient à l'utilisateur connecté
-    const deck = await Deck.query()
+    await Deck.query()
       .where('id', card.deckId)
       .where('user_id', auth.user!.id)
       .firstOrFail()
@@ -80,7 +80,7 @@ export default class CardsController {
     const card = await Card.findOrFail(params.id)
 
     // 2. Vérifier que le deck appartient à l'utilisateur connecté
-    const deck = await Deck.query()
+    await Deck.query()
       .where('id', card.deckId)
       .where('user_id', auth.user!.id)
       .firstOrFail()

@@ -11,12 +11,23 @@
       </p>
     @end
   </div>
-  <div style="display: flex; justify-content: flex-end;">
+  <div style="display: flex; justify-content: flex-end; gap: 10px;">
     <a
       href="{{ route('decks.learn', { id: deck.id }) }}"
       class="btn"
       style="background-color: #28a745;"
     >Apprendre</a>
+
+    <form
+      method="POST"
+      action="{{ route('decks.destroy', { id: deck.id }) }}?_method=DELETE"
+      onsubmit="return confirm('Voulez-vous vraiment supprimer ce deck ?')"
+    >
+      {{ csrfField() }}
+      <button type="submit" class="btn" style="background-color: #dc3545;">
+        Supprimer
+      </button>
+    </form>
   </div>
 
   <div style="margin-bottom: 20px;">
